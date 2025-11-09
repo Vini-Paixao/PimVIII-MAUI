@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             x:Class="PimVIII.MauiCreator.Views.AddConteudoPage"
+             
+             Title="Adicionar Novo Conteúdo">
+
+    <VerticalStackLayout Spacing="10" Margin="20">
+
+        <Label Text="Título do Conteúdo" />
+        <Entry Placeholder="Ex: Aula de C#" />
+
+        <Label Text="Tipo do Conteúdo" />
+        <Entry Placeholder="Ex: Video" />
+
+        <Button Text="Salvar Conteúdo" 
+                Margin="0,20,0,0"
+                Command="{Binding SaveConteudoCommand}"/>
+
+    </VerticalStackLayout>
+</ContentPage>

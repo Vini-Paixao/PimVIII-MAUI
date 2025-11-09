@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PimVIII.MauiCreator.Views.ManageContentPage"
+             Title="Gestão de Conteúdo">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <CollectionView Grid.Row="0" Margin="10"
+                        ItemsSource="{Binding Conteudos}">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="10" Margin="5" StrokeShape="RoundRectangle 10,10,10,10"
+                            StrokeThickness="1" Stroke="LightGray">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label Grid.Column="0" 
+                                   Text="{Binding Titulo}" 
+                                   FontAttributes="Bold" />
+                            <Label Grid.Column="1" 
+                                   Text="{Binding Tipo}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="1" 
+                Text="Adicionar Novo Conteúdo" 
+                Margin="10"
+                Command="{Binding GoToAddPageCommand}" />
+
+    </Grid>
+</ContentPage>
