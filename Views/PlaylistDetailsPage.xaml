@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:PimVIII.MauiCreator.Models"
+             x:Class="PimVIII.MauiCreator.Views.PlaylistDetailsPage"
+             Title="{Binding PlaylistNome}">
+
+    <Grid ColumnDefinitions="*, *" 
+          RowDefinitions="*, Auto" 
+          Padding="10" ColumnSpacing="10">
+
+        <Border Grid.Column="0" Grid.Row="0" Stroke="LightGray" StrokeThickness="1" 
+                Padding="5" StrokeShape="RoundRectangle 10">
+            <VerticalStackLayout>
+                <Label Text="Conteúdos Disponíveis" FontAttributes="Bold" HorizontalOptions="Center" Margin="5" />
+
+                <CollectionView ItemsSource="{Binding ConteudoDisponivel}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Conteudo">
+                            <Border Padding="10" Margin="5" BackgroundColor="LightGray"
+                                    StrokeShape="RoundRectangle 5">
+                                <HorizontalStackLayout Spacing="5">
+
+                                    <Button Text="+" FontSize="Small" Padding="0"
+                                            WidthRequest="30" HeightRequest="30"
+                                            CornerRadius="15"
+                                            BackgroundColor="Green" TextColor="White"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AdicionarItemCommand}"
+                                            CommandParameter="{Binding .}" />
+
+                                    <Label Text="{Binding Titulo}" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Grid.Column="1" Grid.Row="0" Stroke="LightGray" StrokeThickness="1"
+                Padding="5" StrokeShape="RoundRectangle 10">
+            <VerticalStackLayout>
+                <Label Text="Conteúdos na Playlist" FontAttributes="Bold" HorizontalOptions="Center" Margin="5" />
+
+                <CollectionView ItemsSource="{Binding ConteudoNaPlaylist}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Conteudo">
+                            <Border Padding="10" Margin="5" BackgroundColor="AliceBlue"
+                                    StrokeShape="RoundRectangle 5">
+                                <HorizontalStackLayout Spacing="5">
+
+                                    <Button Text="X" FontSize="Small" Padding="0"
+                                            WidthRequest="30" HeightRequest="30"
+                                            CornerRadius="15"
+                                            BackgroundColor="Red" TextColor="White"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoverItemCommand}"
+                                            CommandParameter="{Binding .}" />
+
+                                    <Label Text="{Binding Titulo}" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Border>
+
+        <Button Grid.Row="1" Grid.ColumnSpan="2" 
+                Text="Salvar Alterações" 
+                Margin="10"
+                Command="{Binding SalvarAlteracoesCommand}" />
+
+    </Grid>
+</ContentPage>

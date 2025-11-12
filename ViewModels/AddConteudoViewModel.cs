@@ -4,10 +4,14 @@ using PimVIII.MauiCreator.Models;
 using PimVIII.MauiCreator.Services;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
+using CommunityToolkit.Mvvm.Messaging;
+using PimVIII.MauiCreator.Messages;
 
 namespace PimVIII.MauiCreator.ViewModels
 {
+
     // 1. Herda de ObservableObject
+    [QueryProperty(nameof(ConteudoParaEditar), "ConteudoParaEditar")]
     public partial class AddConteudoViewModel : ObservableObject
     {
         private readonly ConteudoService _conteudoService;
@@ -18,6 +22,27 @@ namespace PimVIII.MauiCreator.ViewModels
 
         [ObservableProperty]
         private string _tipo;
+
+        // Propriedade para guardar o ID (se for edição)
+        private int _conteudoID;
+
+        private Conteudo _conteudoParaEditar;
+        public Conteudo ConteudoParaEditar
+        {
+            get => _conteudoParaEditar;
+            set
+            {
+                SetProperty(ref _conteudoParaEditar, value);
+
+                // 3. QUANDO O OBJETO CHEGAR, PREENCHE O FORMULÁRIO
+                if (value != null)
+                {
+                    Titulo = value.Titulo;
+                    Tipo = value.Tipo;
+                    _conteudoID = value.ID; // Guarda o ID
+                }
+            }
+        }
 
         public AddConteudoViewModel(ConteudoService conteudoService)
         {
@@ -30,30 +55,49 @@ namespace PimVIII.MauiCreator.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Titulo) || string.IsNullOrWhiteSpace(Tipo))
             {
-                await Application.Current.MainPage.DisplayAlert("Campos Vazios", "Por favor, preencha o Título e o Tipo do conteúdo.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Campos Vazios", "...", "OK");
                 return;
             }
 
-            // Cria o novo objeto Conteudo
-            var novoConteudo = new Conteudo
+            bool sucesso = false;
+
+            // Cria o objeto com os dados da tela
+            var conteudo = new Conteudo
             {
+                ID = _conteudoID, // Se for 0, é novo. Se for > 0, é edição.
                 Titulo = Titulo,
                 Tipo = Tipo,
                 CriadorID = 1 // Hardcodado para o protótipo
             };
 
-            // 4. Envia para a API
-            bool sucesso = await _conteudoService.AddConteudoAsync(novoConteudo);
+            if (_conteudoID == 0)
+            {
+                // 1. LÓGICA DE ADICIONAR (POST)
+                sucesso = await _conteudoService.AddConteudoAsync(conteudo);
+            }
+            else
+            {
+                // 2. LÓGICA DE ATUALIZAR (PUT)
+                sucesso = await _conteudoService.UpdateConteudoAsync(conteudo);
+            }
 
             if (sucesso)
             {
-                // 5. Se salvar, navega de volta para a página anterior (a lista)
+                // Limpa os campos para a próxima vez
+                Titulo = string.Empty;
+                Tipo = string.Empty;
+                _conteudoID = 0;
+                ConteudoParaEditar = null;
+
+                // Dispara a mensagem (para atualizar a lista)
+                WeakReferenceMessenger.Default.Send(new ConteudoSavedMessage());
+
+                // Navega de volta
                 await Shell.Current.GoToAsync("..");
             }
             else
             {
-                // Alerta de erro de API
-                await Application.Current.MainPage.DisplayAlert("Erro de API", "Não foi possível salvar o conteúdo. Verifique a API.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Erro de API", "Não foi possível salvar...", "OK");
             }
         }
     }

@@ -9,14 +9,16 @@
     <VerticalStackLayout Spacing="10" Margin="20">
 
         <Label Text="Título do Conteúdo" />
-        <Entry Placeholder="Ex: Aula de C#" />
+        <Entry Placeholder="Ex: Aula de C#" 
+           Text="{Binding Titulo, Mode=TwoWay}" />
 
         <Label Text="Tipo do Conteúdo" />
-        <Entry Placeholder="Ex: Video" />
+        <Entry Placeholder="Ex: Video" 
+           Text="{Binding Tipo, Mode=TwoWay}" />
 
         <Button Text="Salvar Conteúdo" 
-                Margin="0,20,0,0"
-                Command="{Binding SaveConteudoCommand}"/>
+            Margin="0,20,0,0"
+            Command="{Binding SaveConteudoCommand}" />
 
     </VerticalStackLayout>
 </ContentPage>

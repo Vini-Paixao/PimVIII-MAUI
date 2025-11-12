@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PimVIII.MauiCreator.Views.AnalyticsPage"
+             Title="Análise de Desempenho">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Desempenho Geral" 
+                   FontSize="Large" 
+                   FontAttributes="Bold" />
+
+            <Border StrokeShape="RoundRectangle 10" Stroke="LightGray" Padding="20">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Visualizações Totais" FontSize="Small" TextColor="Gray" />
+                    <Label Text="1.284.500" FontSize="Header" FontAttributes="Bold" />
+                    <Label Text="+15% nos últimos 30 dias" TextColor="Green" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 10" Stroke="LightGray" Padding="20">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Tempo de Exibição (Horas)" FontSize="Small" TextColor="Gray" />
+                    <Label Text="8.750,5" FontSize="Header" FontAttributes="Bold" />
+                    <Label Text="+5.2% nos últimos 30 dias" TextColor="Green" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 10" Stroke="LightGray" Padding="20">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Engajamento por Conteúdo" FontAttributes="Bold" />
+
+                    <Label Text="Aula de POO V: 45% (Pico)" />
+                    <BoxView HeightRequest="10" Color="Blue" WidthRequest="200" HorizontalOptions="Start" />
+
+                    <Label Text="Aula de POO II: 30%" />
+                    <BoxView HeightRequest="10" Color="Blue" WidthRequest="150" HorizontalOptions="Start" />
+
+                    <Label Text="Aula de POO VI: 15%" />
+                    <BoxView HeightRequest="10" Color="Blue" WidthRequest="75" HorizontalOptions="Start" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

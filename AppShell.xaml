@@ -15,6 +15,16 @@
             ContentTemplate="{DataTemplate views:ManageContentPage}"
             Route="ManageContentPage" />
 
+        <ShellContent
+            Title="Playlists"
+            ContentTemplate="{DataTemplate views:ManagePlaylistsPage}"
+            Route="ManagePlaylistsPage" />
+
+        <ShellContent
+            Title="Analytics"
+            ContentTemplate="{DataTemplate views:AnalyticsPage}"
+            Route="AnalyticsPage" />
+
     </TabBar>
 
 </Shell>

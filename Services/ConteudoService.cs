@@ -11,7 +11,7 @@ namespace PimVIII.MauiCreator.Services
     {
         private readonly HttpClient _httpClient;
         
-        private const string BaseApiUrl = "http://localhost:5027"; 
+        private const string BaseApiUrl = "https://pimviii.marcuspaixao.com.br"; 
 
         public ConteudoService()
         {
@@ -42,6 +42,7 @@ namespace PimVIII.MauiCreator.Services
             return conteudos;
         }
 
+        // Método para Adicionar (POST) um novo conteúdo
         public async Task<bool> AddConteudoAsync(Conteudo conteudo)
         {
             try
@@ -55,6 +56,40 @@ namespace PimVIII.MauiCreator.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro ao adicionar conteúdo: {ex.Message}");
+                return false;
+            }
+        }
+
+        // Método para Atualizar (PUT) um conteúdo
+        public async Task<bool> UpdateConteudoAsync(Conteudo conteudo)
+        {
+            try
+            {
+                // Faz a chamada PUT para /api/Conteudos/{id}
+                HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"/api/Conteudos/{conteudo.ID}", conteudo);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao atualizar conteúdo: {ex.Message}");
+                return false;
+            }
+        }
+
+        // Método para Excluir (DELETE) um conteúdo
+        public async Task<bool> DeleteConteudoAsync(int id)
+        {
+            try
+            {
+                // Faz a chamada DELETE para /api/Conteudos/{id}
+                HttpResponseMessage response = await _httpClient.DeleteAsync($"/api/Conteudos/{id}");
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao excluir conteúdo: {ex.Message}");
                 return false;
             }
         }

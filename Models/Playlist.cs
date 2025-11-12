@@ -11,5 +11,7 @@ namespace PimVIII.MauiCreator.Models
         public int ID { get; set; }
         public string Nome { get; set; } = string.Empty;
         public int UsuarioID { get; set; }
+
+        public List<Conteudo> Conteudos { get; set; }
     }
 }

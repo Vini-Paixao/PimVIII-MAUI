@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:PimVIII.MauiCreator.Models"
+             x:Class="PimVIII.MauiCreator.Views.ManagePlaylistsPage"
+             Title="Gestão de Playlists">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <CollectionView Grid.Row="0" Margin="10"  
+                        ItemsSource="{Binding Playlists}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Playlist">
+                    <Border Padding="10" Margin="5" StrokeShape="RoundRectangle 10"
+                StrokeThickness="1" Stroke="LightGray">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.GoToDetailsCommand}"
+                    CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="*, Auto">
+
+                            <Label Grid.Column="0" 
+                       Text="{Binding Nome}" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />
+
+                            <HorizontalStackLayout Grid.Column="1" 
+                                       Spacing="10" 
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End"
+                                       Margin="0,0,10,0">
+
+                                <ImageButton Source="icon1.png"
+                                 HeightRequest="30"
+                                 WidthRequest="30"
+                                 BackgroundColor="Transparent"
+                                 Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.GoToDetailsCommand}"
+                                 CommandParameter="{Binding .}" />
+
+                                <ImageButton Source="icon2.png"
+                                 HeightRequest="30"
+                                 WidthRequest="30"
+                                 BackgroundColor="Transparent"
+                                 Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeletePlaylistCommand}"
+                                 CommandParameter="{Binding .}" />
+
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="1" 
+                Text="Adicionar Nova Playlist" 
+                Margin="10"
+                Command="{Binding GoToAddPageCommand}" />
+
+    </Grid>
+</ContentPage>

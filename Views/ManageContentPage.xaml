@@ -11,14 +11,40 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border Padding="10" Margin="5" StrokeShape="RoundRectangle 10,10,10,10"
-                            StrokeThickness="1" Stroke="LightGray">
+                    <Border Padding="10" Margin="5" StrokeShape="RoundRectangle 10"
+                StrokeThickness="1" Stroke="LightGray">
+
                         <Grid ColumnDefinitions="*, Auto">
-                            <Label Grid.Column="0" 
-                                   Text="{Binding Titulo}" 
-                                   FontAttributes="Bold" />
-                            <Label Grid.Column="1" 
-                                   Text="{Binding Tipo}" />
+
+                            <VerticalStackLayout Grid.Column="0" 
+                                     VerticalOptions="Center">
+                                <Label Text="{Binding Titulo}" 
+                           FontAttributes="Bold" />
+                                <Label Text="{Binding Tipo}" 
+                           FontSize="Small" />
+                            </VerticalStackLayout>
+
+                            <HorizontalStackLayout Grid.Column="1" 
+                       Spacing="10" 
+                       VerticalOptions="Center"
+                       HorizontalOptions="End"
+                       Margin="0,0,10,0">
+
+                                <ImageButton Source="icon1.png"
+                                     HeightRequest="30"
+                                     WidthRequest="30"
+                                     BackgroundColor="Transparent"
+                                     Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditConteudoCommand}"
+                                     CommandParameter="{Binding .}" />
+
+                                <ImageButton Source="icon2.png"
+                                     HeightRequest="30"
+                                     WidthRequest="30"
+                                     BackgroundColor="Transparent"
+                                     Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteConteudoCommand}"
+                                     CommandParameter="{Binding .}" />
+
+                            </HorizontalStackLayout>
                         </Grid>
                     </Border>
                 </DataTemplate>
